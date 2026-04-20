@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לזכרו של יוחנן אליהו פרדג' ז"ל</title>
+    <meta name="description" content="אתר לזכרו של יוחנן אליהו פרדג' ז״ל, לוחם סיירת אגוז וחטיבת כרמלי, תושב קריית ארבע, בן 38. לוחם שנשא על כתפיו את עמו.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-section: #111118;
+            --bg-card: #1a1a24;
+            --text-primary: #e8e8ec;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6a6a7a;
+            --gold: #c9a84c;
+            --gold-light: #e8c96d;
+            --gold-dim: #8a7030;
+            --border: #2a2a38;
+            --olive: #4a5a3a;
+            --olive-light: #6a7a5a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.05) 0%, transparent 60%),
+                var(--bg-primary);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+        }
+
+        .hero-symbol {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            opacity: 0.7;
+        }
+
+        .hero h1 {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .dates {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero .subtitle {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--gold);
+            font-weight: 500;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .hero .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Sections */
+        section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Quote blocks */
+        .quote {
+            background: var(--bg-card);
+            border-right: 3px solid var(--gold);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .quote p {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote cite {
+            font-family: 'Heebo', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: normal;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-right: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold-dim), var(--border), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: -2.35rem;
+            top: 0.6rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 2px solid var(--bg-primary);
+        }
+
+        .timeline-year {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Info cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .info-card .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card .value {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Dream section */
+        .dream-section {
+            background: var(--bg-section);
+            border: 1px solid var(--gold-dim);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .dream-section h3 {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .dream-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Character traits */
+        .traits {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .traits li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding-right: 1.5rem;
+            position: relative;
+        }
+
+        .traits li::before {
+            content: '—';
+            position: absolute;
+            right: 0;
+            color: var(--gold-dim);
+        }
+
+        /* Military service */
+        .service-badge {
+            display: inline-block;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0.25rem;
+        }
+
+        .service-badge.highlight {
+            border-color: var(--gold-dim);
+            color: var(--gold-light);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer .memorial-text {
+            font-family: 'Frank Ruhl Libre', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        /* Dividers */
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gold-dim);
+            margin: 3rem auto;
+        }
+
+        /* Paragraph text */
+        .body-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+        }
+
+        .body-text strong {
+            color: var(--text-primary);
+        }
+
+        /* Photo placeholder */
+        .photo-placeholder {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-dim);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Family section */
+        .family-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .family-member {
+            text-align: center;
+        }
+
+        .family-member .name {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .family-member .role {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Context section */
+        .context-note {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .context-note h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .context-note p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .dream-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .timeline {
+                padding-right: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-symbol">✡</div>
+        <div class="photo-placeholder">תמונה תתווסף</div>
+        <h1>יוחנן אליהו פרדג' ז"ל</h1>
+        <p class="dates">תשמ"ח — ט"ג בניסן תשפ"ו | 1988 — 2026</p>
+        <p class="subtitle">לוחם שנשא על כתפיו את עמו עד אשר כשלו כוחותיו</p>
+        <span class="scroll-hint">▼</span>
+    </header>
+
+    <!-- About -->
+    <section>
+        <h2 class="section-title">מי היה יוחנן</h2>
+
+        <p class="body-text">
+            יוחנן אליהו פרדג' היה <strong>תושב קריית ארבע</strong>, בן 38, נשוי לנעמה ואבא לאורי, גלעד ונדב.
+            בכור לשבעה אחים — מתוכם לפחות חמישה לוחמים בצה"ל.
+        </p>
+
+        <p class="body-text">
+            יוחנן שירת את מרבית חייו הבוגרים במערך הלחימה של צה"ל. מסלולו הצבאי החל
+            <strong>בסיירת אגוז</strong> ונמשך בשורת מבצעים ותפקידים — עד יומו האחרון.
+        </p>
+
+        <p class="body-text">
+            הוא לא רק לחם — הוא דאג. דאג ללוחמים אחרים, למפקדים, לפוסט-טראומטיים
+            שטרם הוכרו. נסע ממקום למקום לגייס כספים לטיפול בחברים שנשברו.
+            שמר ציוד חירום בביתו, מוכן תמיד לקריאה — לעיתים עד לתוך חברון עצמה.
+        </p>
+
+        <div class="quote">
+            <p>"נתן הכול לכולם... קודם כל אחרים ורק אחר כך אני"</p>
+            <cite>— משה פרדג', אביו</cite>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">מקום מגורים</div>
+                <div class="value">קריית ארבע</div>
+            </div>
+            <div class="info-card">
+                <div class="label">גיל</div>
+                <div class="value">38</div>
+            </div>
+            <div class="info-card">
+                <div class="label">משפחה</div>
+                <div class="value">נעמה + 3 ילדים</div>
+            </div>
+            <div class="info-card">
+                <div class="label">אחים</div>
+                <div class="value">בכור מתוך 7</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Military Service -->
+    <section>
+        <h2 class="section-title">שירות צבאי</h2>
+
+        <p class="body-text">
+            יוחנן לחם בכל מלחמה שארצו ניהלה מאז שהתגייס. לא ביקש שום דבר בתמורה.
+        </p>
+
+        <div style="margin: 2rem 0;">
+            <span class="service-badge highlight">סיירת אגוז</span>
+            <span class="service-badge highlight">חטיבת כרמלי</span>
+            <span class="service-badge">יחידת התערבות ביו"ש</span>
+            <span class="service-badge">צוות לוט"ר ישובי</span>
+            <span class="service-badge">רבש"ץ קריית ארבע</span>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="label">מבצע</div>
+                <div class="value">עופרת יצוקה</div>
+            </div>
+            <div class="info-card">
+                <div class="label">מבצע</div>
+                <div class="value">צוק איתן</div>
+            </div>
+            <div class="info-card">
+                <div class="label">מבצע</div>
+                <div class="value">חרבות ברזל</div>
+            </div>
+        </div>
+
+        <p class="body-text">
+            לאחר מבצע "צוק איתן" שוחרר מהמילואים בעקבות אירוע קשה שחווה צוותו.
+            אבל כשפרצה מלחמת חרבות ברזל ב-7 באוקטובר — יוחנן לא היסס.
+            פנה לחבר קצין בחטיבת כרמלי ונאבק להתגייס מחדש כסגן מפקד פלוגה.
+        </p>
+
+        <p class="body-text">
+            מאז צבר <strong>חודשים ארוכים של לחימה רצופה</strong> — בעזה, בצפון, ובלבנון.
+        </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Timeline -->
+    <section>
+        <h2 class="section-title">ציר זמן</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">2002</div>
+                <div class="timeline-text">
+                    אביו משה נפצע אנוש בקרב סמטת הגבורה — הפיגוע בציר המתפללים בחברון.
+                    בקרב נהרגו 12 ישראלים, בהם אל"מ דרור וינברג.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">~2006</div>
+                <div class="timeline-text">
+                    מתגייס לסיירת אגוז. תחילת מסלול לחימה שיימשך כל חייו הבוגרים.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2008-2009</div>
+                <div class="timeline-text">
+                    משתתף במבצע עופרת יצוקה בעזה.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2014</div>
+                <div class="timeline-text">
+                    מבצע צוק איתן. חווה אירוע טראומטי בצוות. משוחרר מהמילואים.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">לאחר השחרור</div>
+                <div class="timeline-text">
+                    נפצע בפיגוע אבנים. עובד תקופה במשרד הביטחון, ואז מחליט לשמש כרבש"ץ
+                    בקריית ארבע — תפקיד שמילא תחת לחץ עצום: פיגועים, חדירות, אירועי אבטחה.
+                    במקביל — מתנדב בצוות לוט"ר ישובי ויחידת התערבות ביו"ש.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">7 באוקטובר 2023</div>
+                <div class="timeline-text">
+                    מתעקש לחזור ללחימה. מתגייס מחדש לחטיבת כרמלי.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2023-2026</div>
+                <div class="timeline-text">
+                    חודשים ארוכים של לחימה רצופה: עזה, הצפון, לבנון.
+                    במקביל — עוזר ללוחמים נפגעי נפש, מגייס כסף לטיפולים.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">אפריל 2026</div>
+                <div class="timeline-text">
+                    יוחנן אליהו פרדג' הלך לעולמו. בן 38.
+                    השאיר אחריו אישה, שלושה ילדים, ומשפחה שלמה של לוחמים וחברים.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Character -->
+    <section>
+        <h2 class="section-title">האדם</h2>
+
+        <div class="quote">
+            <p>"יוחנן נתן הכו�� לאחרים עד שנפשו נשברה"</p>
+            <cite>— משה פרדג', אביו</cite>
+        </div>
+
+        <ul class="traits">
+            <li>דאג באופן אישי ללוחמים ולמפקדים — לא רק בקרב, גם אחריו</li>
+            <li>עסק בעזרה לפוסט-טראומטיים שטרם הוכרו רשמית</li>
+            <li>נסע ממקום למקום לגייס כסף עבור טיפול בלוחמים נפגעי נפש</li>
+            <li>שמר ציוד חירום בביתו — מוכן תמיד לכל קריאה</li>
+            <li>הסתיר את הכאב — "הכול בסדר", "קשה אבל אני מסתדר"</li>
+        </ul>
+
+        <div class="quote">
+            <p>"תקשיב, אני כבר חנוק"</p>
+            <cite>— יוחנן, לאחיו, בתקופה האחרונה</cite>
+        </div>
+
+        <p class="body-text">
+            חברים מספרים שלא היו מאמינים שדווקא הוא — שתמיד היה החזק, תמיד נתן,
+            תמיד עזר — הוא זה שייפול. כי הוא לא סיפר. כי הוא לא ביקש.
+        </p>
+
+        <div class="context-note">
+            <h4>הודעת עמותת בוגרי אגוז:</h4>
+            <p>
+                "בצער גדול ובכאב אנו מודיעים על פטירתו בטרם עת של בוגר היחידה,
+                יוחנן אליהו פרדג' ז"ל. יוחנן היה חלק ממשפחת אגוז —
+                <strong>לוחם, חבר ואדם אהוב שהשאיר חותם על כל מי שפגש בו</strong>.
+                אנו מחבקים את המשפחה בשעה קשה זו ומשתתפים בצערה הכבד. יהי זכרו ברוך."
+            </p>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Family -->
+    <section>
+        <h2 class="section-title">משפחה</h2>
+
+        <div class="family-grid">
+            <div class="family-member">
+                <div class="name">נעמה</div>
+                <div class="role">אשתו</div>
+            </div>
+            <div class="family-member">
+                <div class="name">אורי</div>
+                <div class="role">בנו הבכור</div>
+            </div>
+            <div class="family-member">
+                <div class="name">גלעד</div>
+                <div class="role">בנו</div>
+            </div>
+            <div class="family-member">
+                <div class="name">נדב</div>
+                <div class="role">בנו</div>
+            </div>
+        </div>
+
+        <div class="context-note">
+            <h4>בית של לוחמים</h4>
+            <p>
+                יוחנן היה בכור לשבעה אחים — לפחות חמישה מהם לוחמים בצה"ל.
+                אביו משה, נכה צה"ל, נפצע אנוש בקרב סמטת הגבורה ב-2002 —
+                קרב שבו נהרגו 12 ישראלים בהגנה על ציר המתפללים לחברון.
+            </p>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- The Dream -->
+    <section>
+        <h2 class="section-title">החלום</h2>
+
+        <div class="dream-section">
+            <h3>מרכז טיפולי ללוחמים</h3>
+            <p>
+                החלום האחרון של יוחנן היה להקים מקום — מקום שייתן כלים להתמודדות
+                עם הפצעים הבלתי נראים. מקום ללוחמים שלא מדברים ולא משתפים.
+                מקום שלא היה שם בשבילו.
+            </p>
+        </div>
+
+        <p class="body-text">
+            משפחתו מבקשת להגשים את החלום הזה. לקחת את מה שיוחנן רצה לעשות
+            למען אחרים — ולהפוך אותו למציאות.
+        </p>
+
+        <p class="body-text" style="color: var(--text-muted); font-size: 0.95rem;">
+            המשפחה מבקשת לשתף את הסיפור הזה רחוק ממחלוקות פוליטיות.
+            הסיפור של יוחנן הוא סיפור אנושי — של לוחם שנשבר כי נתן יותר מדי
+            ולא ביקש מספיק.
+        </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="memorial-text">ת.נ.צ.ב.ה</div>
+        <p>תהא נשמתו צרורה בצרור החיים</p>
+        <br>
+        <p>יוחנן אליהו פרדג' ז"ל</p>
+        <p>קריית ארבע | סיירת אגוז | חטיבת כרמלי</p>
+        <br>
+        <p style="margin-top: 2rem; font-size: 0.8rem;">
+            לוחם שנשא על כתפיו את עמו עד אשר כשלו כוחותיו
+        </p>
+    </footer>
+
+</body>
+</html>
