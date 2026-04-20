@@ -10,20 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #050508;
-            --bg-primary: #0a0a10;
-            --bg-section: #0f0f18;
-            --bg-card: #151520;
-            --bg-card-hover: #1a1a28;
-            --text-primary: #eaeaef;
-            --text-secondary: #a8a8b8;
-            --text-muted: #5a5a6e;
-            --gold: #c9a84c;
-            --gold-light: #e8d080;
-            --gold-dim: #6a5a28;
-            --gold-glow: rgba(201, 168, 76, 0.15);
-            --border: #1e1e2e;
-            --border-light: #2a2a3e;
+            --bg-deep: #f8f9fc;
+            --bg-primary: #ffffff;
+            --bg-section: #f0f4f8;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5f8fc;
+            --text-primary: #1a2340;
+            --text-secondary: #3d4a6b;
+            --text-muted: #7a8499;
+            --blue: #0038b8;
+            --blue-light: #4a7edb;
+            --blue-dark: #002080;
+            --blue-glow: rgba(0, 56, 184, 0.1);
+            --silver: #c0c8d4;
+            --white-pure: #ffffff;
+            --border: #dce3ed;
+            --border-light: #e8edf5;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,6 +40,13 @@
             overflow-x: hidden;
         }
 
+        /* Israel flag stripe accents */
+        .flag-stripe-top,
+        .flag-stripe-bottom {
+            height: 6px;
+            background: var(--blue);
+        }
+
         /* ===== NAVIGATION ===== */
         nav {
             position: fixed;
@@ -46,9 +55,10 @@
             right: 0;
             z-index: 1000;
             padding: 1rem 2rem;
-            background: rgba(5, 5, 8, 0.85);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 20px rgba(0,56,184,0.05);
             display: flex;
             justify-content: center;
             gap: 2rem;
@@ -64,7 +74,7 @@
             letter-spacing: 0.02em;
         }
 
-        nav a:hover, nav a.active { color: var(--gold); }
+        nav a:hover, nav a.active { color: var(--blue); }
 
         /* ===== HERO ===== */
         .hero {
@@ -82,7 +92,7 @@
             background:
                 url('https://ynet-pic1.yit.co.il/cdn-cgi/image/f=auto,w=1200,q=75/picserver6/crop_images/2026/04/08/H1eDZ11z4211g/H1eDZ11z4211g_1_85_556_313_0_x-large.jpg')
                 center/cover no-repeat;
-            filter: brightness(0.3) saturate(0.6);
+            filter: brightness(0.5) saturate(0.7);
             transform: scale(1.1);
             transition: transform 0.5s;
         }
@@ -92,9 +102,9 @@
             inset: 0;
             background: linear-gradient(
                 to bottom,
-                rgba(5,5,8,0.4) 0%,
-                rgba(5,5,8,0.6) 50%,
-                rgba(5,5,8,0.95) 100%
+                rgba(0,20,80,0.4) 0%,
+                rgba(0,20,80,0.55) 50%,
+                rgba(248,249,252,1) 100%
             );
         }
 
@@ -110,7 +120,7 @@
             font-family: 'Frank Ruhl Libre', serif;
             font-size: clamp(3rem, 7vw, 5.5rem);
             font-weight: 900;
-            color: var(--text-primary);
+            color: #ffffff;
             margin-bottom: 0.5rem;
             text-shadow: 0 4px 30px rgba(0,0,0,0.5);
             opacity: 0;
@@ -119,7 +129,7 @@
 
         .hero-content .dates {
             font-size: 1.3rem;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.85);
             margin-bottom: 1.5rem;
             font-weight: 300;
             opacity: 0;
@@ -129,7 +139,7 @@
         .hero-content .tagline {
             font-family: 'Frank Ruhl Libre', serif;
             font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-            color: var(--gold);
+            color: rgba(255,255,255,0.95);
             font-weight: 500;
             opacity: 0;
             animation: fadeUp 1s 0.7s forwards;
@@ -142,7 +152,7 @@
             transform: translateX(-50%);
             width: 24px;
             height: 40px;
-            border: 2px solid var(--gold-dim);
+            border: 2px solid rgba(255,255,255,0.5);
             border-radius: 12px;
             opacity: 0;
             animation: fadeUp 1s 1.2s forwards;
@@ -156,7 +166,7 @@
             transform: translateX(-50%);
             width: 4px;
             height: 8px;
-            background: var(--gold);
+            background: #ffffff;
             border-radius: 2px;
             animation: scrollDot 2s infinite;
         }
@@ -192,7 +202,7 @@
 
         .section-label {
             font-size: 0.75rem;
-            color: var(--gold);
+            color: var(--blue);
             text-transform: uppercase;
             letter-spacing: 0.2em;
             margin-bottom: 0.5rem;
@@ -269,7 +279,15 @@
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
-            filter: brightness(0.2) saturate(0.5);
+            filter: brightness(0.25) saturate(0.4);
+        }
+
+        .parallax-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 32, 128, 0.6);
+            z-index: 1;
         }
 
         .parallax-content {
@@ -283,13 +301,13 @@
         .parallax-content blockquote {
             font-family: 'Frank Ruhl Libre', serif;
             font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-            color: var(--text-primary);
+            color: #ffffff;
             font-weight: 500;
             margin-bottom: 1rem;
         }
 
         .parallax-content cite {
-            color: var(--gold);
+            color: var(--blue);
             font-size: 1rem;
             font-style: normal;
         }
@@ -309,18 +327,19 @@
             padding: 2rem 1.5rem;
             text-align: center;
             transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 12px rgba(0,56,184,0.04);
         }
 
         .stat-card:hover {
-            border-color: var(--gold-dim);
-            box-shadow: 0 0 30px var(--gold-glow);
+            border-color: var(--blue);
+            box-shadow: 0 8px 30px var(--blue-glow);
         }
 
         .stat-card .number {
             font-family: 'Frank Ruhl Libre', serif;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--gold);
+            color: var(--blue);
         }
 
         .stat-card .label {
@@ -344,7 +363,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, var(--gold), var(--border), transparent);
+            background: linear-gradient(to bottom, var(--blue), var(--border), transparent);
         }
 
         .tl-item {
@@ -358,7 +377,7 @@
         }
 
         .tl-item:hover {
-            border-color: var(--gold-dim);
+            border-color: var(--blue-dark);
             transform: translateX(-4px);
         }
 
@@ -370,13 +389,13 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: var(--gold);
-            box-shadow: 0 0 10px var(--gold-glow);
+            background: var(--blue);
+            box-shadow: 0 0 10px var(--blue-glow);
         }
 
         .tl-year {
             font-size: 0.8rem;
-            color: var(--gold);
+            color: var(--blue);
             font-weight: 700;
             letter-spacing: 0.05em;
             margin-bottom: 0.25rem;
@@ -407,9 +426,9 @@
         }
 
         .badge.gold {
-            border-color: var(--gold-dim);
-            color: var(--gold);
-            background: rgba(201, 168, 76, 0.08);
+            border-color: var(--blue);
+            color: var(--blue);
+            background: rgba(0, 56, 184, 0.06);
         }
 
         /* ===== QUOTE CARDS ===== */
@@ -430,8 +449,8 @@
             right: 20px;
             font-family: 'Frank Ruhl Libre', serif;
             font-size: 8rem;
-            color: var(--gold-dim);
-            opacity: 0.3;
+            color: var(--blue);
+            opacity: 0.12;
             line-height: 1;
         }
 
@@ -451,13 +470,14 @@
 
         /* ===== DREAM SECTION ===== */
         .dream-box {
-            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(201,168,76,0.05) 100%);
-            border: 1px solid var(--gold-dim);
+            background: linear-gradient(135deg, #ffffff 0%, #eef3fb 100%);
+            border: 2px solid var(--blue);
             border-radius: 20px;
             padding: 4rem 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,56,184,0.08);
         }
 
         .dream-box::after {
@@ -467,14 +487,14 @@
             right: -50%;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+            background: radial-gradient(circle, rgba(0,56,184,0.04), transparent 70%);
             pointer-events: none;
         }
 
         .dream-box h3 {
             font-family: 'Frank Ruhl Libre', serif;
             font-size: 2rem;
-            color: var(--gold);
+            color: var(--blue);
             margin-bottom: 1.5rem;
             position: relative;
         }
@@ -505,7 +525,7 @@
         }
 
         .article-card:hover {
-            border-color: var(--gold-dim);
+            border-color: var(--blue-dark);
             transform: translateY(-4px);
             box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
@@ -522,7 +542,7 @@
 
         .article-card .source {
             font-size: 0.75rem;
-            color: var(--gold);
+            color: var(--blue);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 0.5rem;
@@ -579,9 +599,9 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
+            background: var(--blue);
+            border: none;
+            color: #ffffff;
             font-size: 1.2rem;
             cursor: pointer;
             display: flex;
@@ -591,7 +611,7 @@
             transition: background 0.2s;
         }
 
-        .modal-close:hover { background: var(--bg-card); }
+        .modal-close:hover { background: var(--blue-dark); }
 
         /* ===== BODY TEXT ===== */
         .body-text {
@@ -620,11 +640,11 @@
             transition: border-color 0.3s;
         }
 
-        .traits li:hover { border-color: var(--gold-dim); }
+        .traits li:hover { border-color: var(--blue-dark); }
 
         .traits li::before {
             content: '◆';
-            color: var(--gold-dim);
+            color: var(--blue-dark);
             margin-left: 0.75rem;
             font-size: 0.6rem;
             vertical-align: middle;
@@ -667,27 +687,36 @@
         .divider {
             width: 80px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+            background: linear-gradient(90deg, transparent, var(--blue), transparent);
             margin: 0 auto;
+        }
+
+        /* Star of David separator */
+        .star-divider {
+            text-align: center;
+            margin: 3rem auto;
+            color: var(--blue);
+            font-size: 1.5rem;
+            opacity: 0.4;
         }
 
         /* ===== FOOTER ===== */
         footer {
             text-align: center;
             padding: 6rem 2rem;
-            background: var(--bg-section);
-            border-top: 1px solid var(--border);
+            background: var(--blue-dark);
+            color: #ffffff;
         }
 
         footer .memorial {
             font-family: 'Frank Ruhl Libre', serif;
             font-size: 3rem;
-            color: var(--gold);
+            color: var(--blue);
             margin-bottom: 1rem;
         }
 
         footer .sub {
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.7);
             font-size: 1rem;
             margin-bottom: 0.5rem;
         }
@@ -695,7 +724,7 @@
         footer .credits {
             margin-top: 3rem;
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.4);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -716,6 +745,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Flag stripe top -->
+    <div class="flag-stripe-top"></div>
 
     <!-- Navigation -->
     <nav>
@@ -1057,11 +1089,14 @@
 
     <!-- Footer -->
     <footer>
-        <div class="memorial">ת.נ.צ.ב.ה</div>
+        <div class="memorial">✡ ת.נ.צ.ב.ה ✡</div>
         <p class="sub">תהא נשמתו צרורה בצרור החיים</p>
         <p class="sub">יוחנן אליהו פרדג' ז"ל · קריית ארבע · סיירת אגוז · חטיבת כרמלי</p>
         <p class="credits">נבנה באהבה לזכרו של חבר</p>
     </footer>
+
+    <!-- Flag stripe bottom -->
+    <div class="flag-stripe-bottom"></div>
 
     <!-- Article Viewer Modal -->
     <div class="modal-overlay" id="articleModal">
