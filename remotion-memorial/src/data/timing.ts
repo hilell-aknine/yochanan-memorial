@@ -1,8 +1,12 @@
 // Master timing constants for the memorial film.
 //
 // Structure:
-//   Intro video (64s) → Scenes 1–6 with audio/narration (630s) → Outro video (26s)
-//   Total: 12:00 (720s) at 30fps = 21,600 frames.
+//   Intro video (64s) → Scenes 1–6 with audio/narration + family clips → Outro video (26s)
+//
+// Photo pacing rule: each photo plays for at most 4 seconds (Hillel's
+// directive). Scene durations are computed as numPhotos × 4s + family
+// video durations + hero exception. Total film currently runs short of
+// 12:00; fill with additional content as Hillel finishes classifying.
 //
 // audio/text cue offsets are SCENE-RELATIVE (i.e. as if scene 1 starts at 0).
 // MemorialVideo wraps scenes in a Sequence at INTRO_DURATION so they
@@ -17,16 +21,21 @@ export const sec = (s: number) => Math.round(s * FPS);
 // Cross-fade duration between consecutive photos within a scene.
 export const CROSSFADE_FRAMES = sec(0.5);
 
-// Target durations per scene (seconds). Used to size the composition and
-// to derive per-photo durations when not specified explicitly.
-// Scaled by 0.875 from the original 720s plan so total film = 12:00.
+// Per-photo cap in seconds (Hillel's pacing directive).
+export const MAX_PHOTO_SEC = 4;
+
+// Scene durations (seconds), computed by:
+//   numPhotos × 4s + embedded family video durations
+// Scene 4 intentionally violates the cap (6.4s/photo) so the contemplative
+// narration about his inner struggle has room to breathe.
+// Scene 6 hero shot is held for 56s by design.
 export const SCENE_DURATIONS = {
-  scene1Opening: 70,
-  scene2WhoHeWas: 140,
-  scene3FamilyMan: 158,
-  scene4Struggle: 131,
-  scene5Legacy: 78,
-  scene6Ending: 53,
+  scene1Opening: 32, //   8 portraits × 4s
+  scene2WhoHeWas: 131, // 10+27+5 photos (≤4s avg) + 3.6s video "personal"
+  scene3FamilyMan: 156, // 7+9+15 × 4s + 14s + 17.4s family videos
+  scene4Struggle: 32, //  5 portraits × 6.4s (cap override for narration)
+  scene5Legacy: 76, //    9 photos × 4s + 40s family-3 video
+  scene6Ending: 60, //    56s hero + 4s title card
 } as const;
 
 export const SCENES_TOTAL_SECONDS = Object.values(SCENE_DURATIONS).reduce(

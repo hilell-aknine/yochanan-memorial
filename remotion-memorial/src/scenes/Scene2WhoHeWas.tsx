@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import { PhotoSequence } from "../components/PhotoSequence";
+import { FamilyVideoClip } from "../components/FamilyVideoClip";
 import {
   scene2Childhood,
   scene2Service,
@@ -9,47 +10,51 @@ import {
 } from "../data/photoManifest";
 import { sec, SCENE_DURATIONS } from "../data/timing";
 
-// Scene 2 · 1:20–4:00 · Who he was
-// Order: childhood → service → friends → events.
-// Time is allocated by sub-section weight; if a sub-section is empty,
-// its time is redistributed to the others.
+// Scene 2 · Who he was
+// Order: childhood → service → personal video → friends → events
+// All times remain ≤ 4s per photo (mostly 2.5–3.7s, well under cap).
+const PHASES = [
+  { kind: "photos" as const, name: "childhood", photos: scene2Childhood, durationSec: 0 },
+  { kind: "photos" as const, name: "service", photos: scene2Service, durationSec: 33 },
+  { kind: "video" as const, name: "personal", src: "assets/videos/personal.mp4", durationSec: 3.6 },
+  { kind: "photos" as const, name: "friends", photos: scene2Friends, durationSec: 74 }, // 27 photos × 2.74s
+  { kind: "photos" as const, name: "events", photos: scene2Events, durationSec: 20 }, // 5 photos × 4s
+];
+
 export const Scene2WhoHeWas: React.FC = () => {
-  const totalFrames = sec(SCENE_DURATIONS.scene2WhoHeWas);
-
-  const sections = [
-    { name: "childhood", photos: scene2Childhood, weight: 0.15 },
-    { name: "service", photos: scene2Service, weight: 0.2 },
-    { name: "friends", photos: scene2Friends, weight: 0.45 },
-    { name: "events", photos: scene2Events, weight: 0.2 },
-  ];
-
-  const populated = sections.filter((s) => s.photos.length > 0);
-  const totalWeight = populated.reduce((a, s) => a + s.weight, 0) || 1;
-
-  const slots = sections.map((s) => {
-    if (s.photos.length === 0) return { ...s, frames: 0 };
-    return { ...s, frames: Math.floor((s.weight / totalWeight) * totalFrames) };
-  });
-
+  void SCENE_DURATIONS; // keep import; total is summed from PHASES
   let cursor = 0;
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
-      {slots.map((s) => {
-        if (s.frames <= 0) return null;
+      {PHASES.map((p) => {
+        const frames = sec(p.durationSec);
+        if (frames <= 0) return null;
         const from = cursor;
-        cursor += s.frames;
+        cursor += frames;
+        if (p.kind === "photos") {
+          return (
+            <Sequence
+              key={p.name}
+              from={from}
+              durationInFrames={frames}
+              name={`scene2-${p.name}`}
+            >
+              <PhotoSequence
+                photos={p.photos}
+                totalDurationFrames={frames}
+                alternate
+              />
+            </Sequence>
+          );
+        }
         return (
           <Sequence
-            key={s.name}
+            key={p.name}
             from={from}
-            durationInFrames={s.frames}
-            name={`scene2-${s.name}`}
+            durationInFrames={frames}
+            name={`scene2-${p.name}`}
           >
-            <PhotoSequence
-              photos={s.photos}
-              totalDurationFrames={s.frames}
-              alternate
-            />
+            <FamilyVideoClip src={p.src} durationInFrames={frames} />
           </Sequence>
         );
       })}

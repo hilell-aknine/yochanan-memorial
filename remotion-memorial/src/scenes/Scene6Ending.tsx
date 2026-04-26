@@ -13,12 +13,13 @@ import { loadFont as loadFrankRuhl } from "@remotion/google-fonts/FrankRuhlLibre
 
 const { fontFamily: frankRuhl } = loadFrankRuhl("normal", { weights: ["400", "700"] });
 
-// Scene 6 · 11:00–12:00 · Ending
-// 56s on the hero photo, then 4s of black with name + dates.
+// Scene 6 · Ending
+// Hero photo for ~93% of the scene, then black title card for the rest
+// (always at least 4s, never longer than ~6s).
 export const Scene6Ending: React.FC = () => {
   const totalFrames = sec(SCENE_DURATIONS.scene6Ending);
-  const heroFrames = sec(56);
-  const titleFrames = totalFrames - heroFrames;
+  const titleFrames = sec(4);
+  const heroFrames = totalFrames - titleFrames;
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>

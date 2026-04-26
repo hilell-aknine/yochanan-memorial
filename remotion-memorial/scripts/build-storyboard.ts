@@ -42,6 +42,10 @@ const PROJECT_ROOT = path.resolve(__dirname, "../../"); // .../יוחנן-אלי
 
 const OUT = path.join(PROJECT_ROOT, "storyboard.html");
 
+type Phase =
+  | { kind: "photos"; name: string; photos: PhotoEntry[]; durationSec: number }
+  | { kind: "video"; name: string; src: string; durationSec: number };
+
 type SceneSection = {
   id: string;
   title: string;
@@ -49,10 +53,30 @@ type SceneSection = {
   duration: number;
   color: string;
   description: string;
-  subSections: { name: string; photos: PhotoEntry[]; weight?: number }[];
+  phases: Phase[];
   hero?: PhotoEntry;
   videoSrc?: string;
 };
+
+// Compute scene start times by accumulation.
+const sceneStarts = (() => {
+  const starts: Record<string, number> = {};
+  let c = INTRO_DURATION_SEC;
+  starts.s1 = c;
+  c += SCENE_DURATIONS.scene1Opening;
+  starts.s2 = c;
+  c += SCENE_DURATIONS.scene2WhoHeWas;
+  starts.s3 = c;
+  c += SCENE_DURATIONS.scene3FamilyMan;
+  starts.s4 = c;
+  c += SCENE_DURATIONS.scene4Struggle;
+  starts.s5 = c;
+  c += SCENE_DURATIONS.scene5Legacy;
+  starts.s6 = c;
+  c += SCENE_DURATIONS.scene6Ending;
+  starts.outro = c;
+  return starts;
+})();
 
 const SCENES: SceneSection[] = [
   {
@@ -62,106 +86,91 @@ const SCENES: SceneSection[] = [
     duration: INTRO_DURATION_SEC,
     color: "#1a1a25",
     description: "סרטון פתיחה (assets/videos/intro.mp4) — 64s עם האודיו המקורי שלו.",
-    subSections: [],
+    phases: [],
     videoSrc: "assets/videos/intro.mp4",
   },
   {
     id: "s1",
     title: "סצנה 1 · פתיחה",
-    start: INTRO_DURATION_SEC,
+    start: sceneStarts.s1,
     duration: SCENE_DURATIONS.scene1Opening,
     color: "#0f2742",
-    description: "מסך שחור 4 שניות → רצף פורטרטים בקצב איטי. מציג את האדם.",
-    subSections: [{ name: "פורטרטים", photos: scene1Photos }],
+    description: "מסך שחור 4 שניות → רצף פורטרטים. 8 תמונות × ~3.5s.",
+    phases: [
+      { kind: "photos", name: "פורטרטים", photos: scene1Photos, durationSec: SCENE_DURATIONS.scene1Opening - 4 },
+    ],
   },
   {
     id: "s2",
     title: "סצנה 2 · מי הוא היה",
-    start: INTRO_DURATION_SEC + SCENE_DURATIONS.scene1Opening,
+    start: sceneStarts.s2,
     duration: SCENE_DURATIONS.scene2WhoHeWas,
     color: "#1a4731",
-    description: "ילדות → שירות → חברים → אירועים. קצב חי. טקסטים על תמונות נבחרות.",
-    subSections: [
-      { name: "ילדות (07)", photos: scene2Childhood, weight: 0.15 },
-      { name: "שירות (05)", photos: scene2Service, weight: 0.2 },
-      { name: "חברים (06)", photos: scene2Friends, weight: 0.45 },
-      { name: "אירועים (08)", photos: scene2Events, weight: 0.2 },
+    description: "שירות → קליפ אישי → חברים → אירועים. קצב חי, ~3s/תמונה.",
+    phases: [
+      { kind: "photos", name: "ילדות (07)", photos: scene2Childhood, durationSec: 0 },
+      { kind: "photos", name: "שירות (05)", photos: scene2Service, durationSec: 33 },
+      { kind: "video", name: "אישי", src: "assets/videos/personal.mp4", durationSec: 3.6 },
+      { kind: "photos", name: "חברים (06)", photos: scene2Friends, durationSec: 74 },
+      { kind: "photos", name: "אירועים (08)", photos: scene2Events, durationSec: 33 },
     ],
   },
   {
     id: "s3",
     title: "סצנה 3 · האיש של המשפחה",
-    start:
-      INTRO_DURATION_SEC +
-      SCENE_DURATIONS.scene1Opening +
-      SCENE_DURATIONS.scene2WhoHeWas,
+    start: sceneStarts.s3,
     duration: SCENE_DURATIONS.scene3FamilyMan,
     color: "#5b2a39",
-    description: "ילדים, נעמה, משפחה רחבה. קצב איטי, slow zoom.",
-    subSections: [
-      { name: "ילדים (03)", photos: scene3Kids, weight: 0.4 },
-      { name: "נעמה (02)", photos: scene3Naama, weight: 0.2 },
-      { name: "משפחה רחבה (04)", photos: scene3Extended, weight: 0.4 },
+    description: "ילדים → קליפ משפחה → נעמה → קליפ משפחה → משפחה רחבה.",
+    phases: [
+      { kind: "photos", name: "ילדים (03)", photos: scene3Kids, durationSec: 28 },
+      { kind: "video", name: "משפחה 1", src: "assets/videos/family-1.mp4", durationSec: 14 },
+      { kind: "photos", name: "נעמה (02)", photos: scene3Naama, durationSec: 32 },
+      { kind: "video", name: "משפחה 2", src: "assets/videos/family-2.mp4", durationSec: 17.4 },
+      { kind: "photos", name: "משפחה רחבה (04)", photos: scene3Extended, durationSec: 36 },
     ],
   },
   {
     id: "s4",
     title: "סצנה 4 · הכוח והמאבק",
-    start:
-      INTRO_DURATION_SEC +
-      SCENE_DURATIONS.scene1Opening +
-      SCENE_DURATIONS.scene2WhoHeWas +
-      SCENE_DURATIONS.scene3FamilyMan,
+    start: sceneStarts.s4,
     duration: SCENE_DURATIONS.scene4Struggle,
     color: "#3a2c4a",
-    description: "פורטרטים שקטים, ~30s לתמונה. מאבק נפשי בעדינות.",
-    subSections: [{ name: "פורטרטים שקטים", photos: scene4Struggle }],
+    description: "פורטרטים שקטים. 5 × 6.4s — קצת מעל ה-cap לטובת קריינות.",
+    phases: [
+      { kind: "photos", name: "פורטרטים שקטים", photos: scene4Struggle, durationSec: SCENE_DURATIONS.scene4Struggle },
+    ],
   },
   {
     id: "s5",
     title: "סצנה 5 · מה הוא השאיר",
-    start:
-      INTRO_DURATION_SEC +
-      SCENE_DURATIONS.scene1Opening +
-      SCENE_DURATIONS.scene2WhoHeWas +
-      SCENE_DURATIONS.scene3FamilyMan +
-      SCENE_DURATIONS.scene4Struggle,
+    start: sceneStarts.s5,
     duration: SCENE_DURATIONS.scene5Legacy,
     color: "#4a3a1f",
-    description: "ילדים + חיוכים אחרונים. ירושה.",
-    subSections: [{ name: "ילדים + חיוכים אחרונים", photos: scene5Legacy }],
+    description: "9 תמונות (ילדים + חיוכים אחרונים) → קליפ משפחה 3 לסיום.",
+    phases: [
+      { kind: "photos", name: "ילדים + חיוכים אחרונים", photos: scene5Legacy, durationSec: 36 },
+      { kind: "video", name: "משפחה 3", src: "assets/videos/family-3.mp4", durationSec: 40 },
+    ],
   },
   {
     id: "s6",
     title: "סצנה 6 · סיום",
-    start:
-      INTRO_DURATION_SEC +
-      SCENE_DURATIONS.scene1Opening +
-      SCENE_DURATIONS.scene2WhoHeWas +
-      SCENE_DURATIONS.scene3FamilyMan +
-      SCENE_DURATIONS.scene4Struggle +
-      SCENE_DURATIONS.scene5Legacy,
+    start: sceneStarts.s6,
     duration: SCENE_DURATIONS.scene6Ending,
     color: "#2a2a2a",
     description: "תמונת hero למשך 56s + 4s כותרת סיום.",
-    subSections: [],
+    phases: [],
     hero: scene6Hero,
   },
   {
     id: "outro",
     title: "אפילוג · סרטון סיום",
-    start:
-      INTRO_DURATION_SEC +
-      SCENE_DURATIONS.scene1Opening +
-      SCENE_DURATIONS.scene2WhoHeWas +
-      SCENE_DURATIONS.scene3FamilyMan +
-      SCENE_DURATIONS.scene4Struggle +
-      SCENE_DURATIONS.scene5Legacy +
-      SCENE_DURATIONS.scene6Ending,
+    start: sceneStarts.outro,
     duration: OUTRO_DURATION_SEC,
     color: "#1a1a25",
     description: "סרטון סיום (assets/videos/outro.mp4) — 26s עם האודיו המקורי שלו.",
-    subSections: [],
+    phases: [],
     videoSrc: "assets/videos/outro.mp4",
   },
 ];
@@ -206,22 +215,8 @@ function distributeFrames(
   );
 }
 
-function distributeSubSections(scene: SceneSection): {
-  name: string;
-  photos: PhotoEntry[];
-  durationSec: number;
-}[] {
-  const populated = scene.subSections.filter((s) => s.photos.length > 0);
-  if (populated.length === 0) return [];
-  const totalWeight =
-    populated.reduce((a, s) => a + (s.weight ?? 1), 0) || 1;
-  return scene.subSections.map((s) => {
-    if (s.photos.length === 0)
-      return { name: s.name, photos: s.photos, durationSec: 0 };
-    const dur = ((s.weight ?? 1) / totalWeight) * scene.duration;
-    return { name: s.name, photos: s.photos, durationSec: dur };
-  });
-}
+// Phases are pre-allocated with explicit durationSec values now.
+// (Helper kept for symmetry with previous API; not used.)
 
 function escapeHtml(s: string): string {
   return s
@@ -286,8 +281,6 @@ function renderTimelineStrip(): string {
 }
 
 function renderScene(scene: SceneSection): string {
-  const subs = distributeSubSections(scene);
-
   // Render the intro/outro video block before all the photo logic.
   if (scene.videoSrc) {
     return `
@@ -324,16 +317,25 @@ function renderScene(scene: SceneSection): string {
       cueMasterFrom(c.fromSec) < sceneEnd,
   );
 
-  const subBlocks = subs
-    .map((sub) => {
-      if (sub.photos.length === 0) {
+  const subBlocks = scene.phases
+    .map((phase) => {
+      if (phase.kind === "video") {
+        return `<div class="sub video-clip">
+          <h3>🎥 קליפ: ${escapeHtml(phase.name)} <small>${phase.durationSec.toFixed(1)}s · אודיו מקורי</small>
+            ${noteWidget(`clip:${scene.id}:${phase.name}`, `קליפ "${phase.name}" (${scene.title})`)}
+          </h3>
+          <video src="${fileUri(phase.src)}" controls preload="metadata" style="max-width:480px; max-height:270px; border-radius:8px;"></video>
+        </div>`;
+      }
+      // photos phase
+      if (phase.photos.length === 0) {
         return `<div class="sub empty">
-          <h3>${escapeHtml(sub.name)}</h3>
+          <h3>${escapeHtml(phase.name)}</h3>
           <div class="empty-msg">⚠️ ריק — אין תמונות מסווגות</div>
         </div>`;
       }
-      const frames = distributeFrames(sub.photos, sub.durationSec);
-      const items = sub.photos
+      const frames = distributeFrames(phase.photos, phase.durationSec);
+      const items = phase.photos
         .map((p, i) => {
           const dur = frames[i] / FPS;
           const text = p.text
@@ -345,23 +347,24 @@ function renderScene(scene: SceneSection): string {
             <div class="photo-meta">
               <span class="photo-dur">${dur.toFixed(1)}s</span>
               <span class="photo-name">${escapeHtml(filename)}</span>
-              ${noteWidget(`photo:${p.src}`, `תמונה ${filename} (${sub.name})`)}
+              ${noteWidget(`photo:${p.src}`, `תמונה ${filename} (${phase.name})`)}
             </div>
             ${text}
           </div>`;
         })
         .join("");
       const avgDur =
-        frames.reduce((a, b) => a + b, 0) / FPS / Math.max(sub.photos.length, 1);
+        frames.reduce((a, b) => a + b, 0) / FPS / Math.max(phase.photos.length, 1);
       return `<div class="sub">
-        <h3>${escapeHtml(sub.name)} <small>${sub.photos.length} תמונות · ${sub.durationSec.toFixed(0)}s · ממוצע ${avgDur.toFixed(1)}s/תמונה</small>
-          ${noteWidget(`sub:${scene.id}:${sub.name}`, `תת-קטגוריה: ${sub.name} (${scene.title})`)}
+        <h3>${escapeHtml(phase.name)} <small>${phase.photos.length} תמונות · ${phase.durationSec.toFixed(0)}s · ממוצע ${avgDur.toFixed(1)}s/תמונה</small>
+          ${noteWidget(`sub:${scene.id}:${phase.name}`, `תת-קטגוריה: ${phase.name} (${scene.title})`)}
         </h3>
         <div class="photos">${items}</div>
       </div>`;
     })
     .join("");
 
+  const heroDur = scene.duration - 4; // hero photo until last 4s for title card
   const heroBlock = scene.hero
     ? `<div class="sub">
         <h3>תמונת hero ${noteWidget(`hero:${scene.id}`, "תמונת hero (סצנה 6)")}</h3>
@@ -369,7 +372,7 @@ function renderScene(scene: SceneSection): string {
           <div class="photo-card hero">
             <img src="${fileUri(scene.hero.src)}" loading="lazy" />
             <div class="photo-meta">
-              <span class="photo-dur">56s</span>
+              <span class="photo-dur">${heroDur}s</span>
               <span class="photo-name">${escapeHtml(scene.hero.src.split("/").pop() ?? "")}</span>
             </div>
           </div>
@@ -552,6 +555,15 @@ const html = `<!doctype html>
     padding: 10px 14px;
     border-radius: 6px;
     border-right: 3px solid #c08a40;
+  }
+  .sub.video-clip {
+    background: linear-gradient(to right, rgba(212,175,55,0.05), transparent);
+    border-right: 3px solid #d4af37;
+  }
+  .sub.video-clip h3 { color: #d4af37; }
+  .sub.video-clip video {
+    background: #000;
+    border: 1px solid #2a2a30;
   }
 
   /* ───── Notes system ───── */
@@ -777,6 +789,7 @@ const html = `<!doctype html>
     scene5Legacy.length +
     1
   }</span>
+  <span>סרטונים: 6 (2 מסביב + 4 משפחה)</span>
   <span>שירים: ${audioCues.length}</span>
   <span>טקסטים: ${textCues.length}</span>
 </div>

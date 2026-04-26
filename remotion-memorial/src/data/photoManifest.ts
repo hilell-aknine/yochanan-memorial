@@ -86,8 +86,6 @@ export const scene2Friends: PhotoEntry[] = [
   { src: `${dir.friends}/IMG-20230128-WA0002.jpg` },
   { src: `${dir.friends}/IMG-20230707-WA0020.jpg` },
   { src: `${dir.friends}/IMG-20240423-WA0001.jpg` },
-  { src: `${dir.friends}/IMG-20250717-WA0095.jpg` },
-  { src: `${dir.friends}/IMG-20250717-WA0101.jpg` },
   { src: `${dir.friends}/IMG-20260415-WA0062.jpg` },
   { src: `${dir.friends}/IMG-20260416-WA0052.jpg` },
   { src: `${dir.friends}/IMG-20260416-WA0054.jpg` },
@@ -103,11 +101,7 @@ export const scene2Friends: PhotoEntry[] = [
 
 export const scene2Events: PhotoEntry[] = [
   { src: `${dir.events}/IMG-20180301-WA0019.jpg` },
-  { src: `${dir.events}/IMG-20190318-WA0027.jpg` },
   { src: `${dir.events}/IMG-20200306-WA0017.jpg` },
-  { src: `${dir.events}/IMG-20260416-WA0057.jpg` },
-  { src: `${dir.events}/IMG-20260416-WA0064.jpg` },
-  { src: `${dir.events}/IMG-20260416-WA0067.jpg` },
   { src: `${dir.events}/IMG-20260416-WA0128.jpg` },
   { src: `${dir.events}/20260421_124001.jpg` },
   { src: `${dir.events}/20260421_125000.jpg` },
@@ -124,17 +118,32 @@ export const scene3Kids: PhotoEntry[] = [
   { src: `${dir.kids}/20190827_120148.jpg` },
   { src: `${dir.kids}/IMG-20260416-WA0041.jpg` },
   { src: `${dir.kids}/IMG-20260416-WA0042.jpg` },
+  { src: `${dir.kids}/beach-cheers.jpg` },
+  { src: `${dir.kids}/picnic-friends.jpg` },
 ];
 
 export const scene3Naama: PhotoEntry[] = [
-  { src: `${dir.naama}/IMG-20260416-WA0065.jpg` },
+  { src: `${dir.naama}/IMG-20170806-WA0013.jpg` },
   { src: `${dir.naama}/IMG-20260416-WA0105.jpg` },
+  { src: `${dir.naama}/family-flowers.jpg` },
+  { src: `${dir.naama}/family-cafe.jpg` },
+  { src: `${dir.naama}/family-cinema.jpg` },
+  { src: `${dir.naama}/family-forest-1.jpg` },
+  { src: `${dir.naama}/family-forest-2.jpg` },
+  { src: `${dir.naama}/family-birthday.jpg` },
+  { src: `${dir.naama}/family-white-shabbat.jpg` },
 ];
 
 export const scene3Extended: PhotoEntry[] = [
-  { src: `${dir.family}/IMG-20170806-WA0013.jpg` },
+  { src: `${dir.family}/IMG-20190318-WA0027.jpg` },
+  { src: `${dir.family}/IMG-20250717-WA0095.jpg` },
+  { src: `${dir.family}/IMG-20250717-WA0101.jpg` },
+  { src: `${dir.family}/IMG-20260416-WA0057.jpg` },
   { src: `${dir.family}/IMG-20260416-WA0058.jpg` },
   { src: `${dir.family}/IMG-20260416-WA0059.jpg` },
+  { src: `${dir.family}/IMG-20260416-WA0064.jpg` },
+  { src: `${dir.family}/IMG-20260416-WA0065.jpg` },
+  { src: `${dir.family}/IMG-20260416-WA0067.jpg` },
   { src: `${dir.family}/IMG-20260416-WA0078.jpg` },
   { src: `${dir.family}/IMG-20260416-WA0083.jpg` },
   { src: `${dir.family}/IMG-20260416-WA0086.jpg` },
@@ -157,9 +166,9 @@ export const scene4Struggle: PhotoEntry[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// SCENE 5 · 9:30–11:00 (90s) · What he left behind
-// 5 kids photos + 2 final smiles (most recent, April 5 2026 — ~1 week before).
-// 7 photos × ~12.8s each.
+// SCENE 5 · What he left behind
+// 7 kids photos + 2 final smiles (most recent, April 5 2026 — ~1 week
+// before he passed). 9 photos × 4s + 40s family-3 video = 76s.
 // ─────────────────────────────────────────────────────────────────────────
 export const scene5Legacy: PhotoEntry[] = [
   { src: `${dir.kids}/IMG-20170822-WA0029.jpg` },
@@ -167,6 +176,8 @@ export const scene5Legacy: PhotoEntry[] = [
   { src: `${dir.kids}/20190827_120148.jpg` },
   { src: `${dir.kids}/IMG-20260416-WA0041.jpg` },
   { src: `${dir.kids}/IMG-20260416-WA0042.jpg` },
+  { src: `${dir.kids}/beach-cheers.jpg` },
+  { src: `${dir.kids}/picnic-friends.jpg` },
   { src: `${dir.alone}/IMG-20260405-WA0011.jpg` },
   { src: `${dir.alone}/IMG-20260405-WA0021.jpg` },
 ];

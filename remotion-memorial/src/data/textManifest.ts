@@ -1,14 +1,12 @@
-// Text overlays placed on the SCENES timeline (scene 1 starts at 0s).
-// MemorialVideo wraps the scenes block in a Sequence at INTRO_DURATION,
-// so these offsets become master-timeline positions automatically.
+// Text overlays on the SCENES timeline (scene 1 starts at 0s).
 //
-// Scene boundaries (scenes timeline):
-//   Scene 1 — 0:00–1:10    (  0– 70s)
-//   Scene 2 — 1:10–3:30    ( 70–210s)   captions also attached to scene2Friends photos
-//   Scene 3 — 3:30–6:08    (210–368s)
-//   Scene 4 — 6:08–8:19    (368–499s)
-//   Scene 5 — 8:19–9:37    (499–577s)
-//   Scene 6 — 9:37–10:30   (577–630s)
+// Scene boundaries (scenes timeline, 4s cap + family clips):
+//   Scene 1 — 0:00–0:32    (  0– 32s)
+//   Scene 2 — 0:32–2:43    ( 32–163s)   captions also attached to scene2Friends photos
+//   Scene 3 — 2:43–5:19    (163–319s)
+//   Scene 4 — 5:19–5:51    (319–351s)
+//   Scene 5 — 5:51–7:07    (351–427s)
+//   Scene 6 — 7:07–8:07    (427–487s)
 
 export type TextSize = "small" | "medium" | "large" | "xlarge";
 export type TextPosition = "top" | "center" | "bottom";
@@ -21,16 +19,15 @@ export type TextCue = {
   position?: TextPosition;
   size?: TextSize;
   font?: "display" | "body";
-  /** Default: word-by-word reveal so the viewer can read along. */
   animation?: TextAnimation;
   label?: string;
 };
 
 export const textCues: TextCue[] = [
-  // ───── Scene 1 (0–70s) ─────
+  // ───── Scene 1 (0–32s) · Opening narration ─────
   {
     label: "s1-line1",
-    fromSec: 7,
+    fromSec: 4,
     durationSec: 7,
     text: ["יש אנשים שנכנסים לחדר", "ומיד הכול נהיה יותר חם."],
     position: "bottom",
@@ -38,7 +35,7 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s1-line2",
-    fromSec: 25,
+    fromSec: 13,
     durationSec: 5,
     text: "כזה הוא היה.",
     position: "bottom",
@@ -46,59 +43,59 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s1-line3",
-    fromSec: 49,
+    fromSec: 21,
     durationSec: 9,
     text: ["חיוך אחד שלו —", "וכל הלב נמס."],
     position: "bottom",
     size: "medium",
   },
 
-  // ───── Scene 3 (210–368s) ─────
+  // ───── Scene 3 (163–319s) · Family man ─────
   {
     label: "s3-intro",
-    fromSec: 221,
-    durationSec: 7,
+    fromSec: 175,
+    durationSec: 8,
     text: "אבל מעל הכול — הוא היה בית.",
     position: "bottom",
     size: "medium",
   },
   {
     label: "s3-father",
-    fromSec: 254,
-    durationSec: 4,
+    fromSec: 215,
+    durationSec: 5,
     text: "אבא מושלם.",
     position: "bottom",
     size: "large",
   },
   {
     label: "s3-husband",
-    fromSec: 280,
-    durationSec: 4,
+    fromSec: 232,
+    durationSec: 5,
     text: "בעל אוהב.",
     position: "bottom",
     size: "large",
   },
   {
     label: "s3-son",
-    fromSec: 306,
-    durationSec: 4,
+    fromSec: 275,
+    durationSec: 5,
     text: "בן מסור.",
     position: "bottom",
     size: "large",
   },
   {
     label: "s3-brother",
-    fromSec: 333,
+    fromSec: 295,
     durationSec: 6,
     text: "אח שתמיד נמצא.",
     position: "bottom",
     size: "large",
   },
 
-  // ───── Scene 4 (368–499s) ─────
+  // ───── Scene 4 (319–351s) · Struggle ─────
   {
     label: "s4-line1",
-    fromSec: 378,
+    fromSec: 321,
     durationSec: 9,
     text: ["מאחורי החיוך הגדול,", "היו גם מלחמות שאי אפשר היה לראות."],
     position: "bottom",
@@ -106,7 +103,7 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s4-line2",
-    fromSec: 413,
+    fromSec: 332,
     durationSec: 6,
     text: "הוא נשא כאב בשקט.",
     position: "bottom",
@@ -114,17 +111,18 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s4-line3",
-    fromSec: 446,
-    durationSec: 10,
+    fromSec: 340,
+    durationSec: 9,
     text: ["נלחם כמו שתמיד נלחם —", "עד שכבר לא נשאר לו כוח."],
     position: "bottom",
     size: "medium",
   },
 
-  // ───── Scene 5 (499–577s) ─────
+  // ───── Scene 5 (351–427s) · What he left ─────
+  // Quotes appear during photos (first 36s), before family-3 video starts.
   {
     label: "s5-quote1",
-    fromSec: 509,
+    fromSec: 355,
     durationSec: 7,
     text: "“הוא לימד אותי מה זה לתת.”",
     position: "bottom",
@@ -133,7 +131,7 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s5-quote2",
-    fromSec: 532,
+    fromSec: 366,
     durationSec: 7,
     text: "“החיוך שלו יישאר איתנו תמיד.”",
     position: "bottom",
@@ -142,7 +140,7 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s5-quote3",
-    fromSec: 557,
+    fromSec: 377,
     durationSec: 7,
     text: "“אין יום שאני לא חושב עליו.”",
     position: "bottom",
@@ -150,10 +148,10 @@ export const textCues: TextCue[] = [
     font: "body",
   },
 
-  // ───── Scene 6 (577–630s) ─────
+  // ───── Scene 6 (427–487s) · Hillel's farewell ─────
   {
     label: "s6-open",
-    fromSec: 580,
+    fromSec: 430,
     durationSec: 5,
     text: "אח שלי…",
     position: "bottom",
@@ -161,7 +159,7 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s6-line1",
-    fromSec: 590,
+    fromSec: 441,
     durationSec: 8,
     text: ["אי אפשר לסכם אדם כמוך", "ב-12 דקות."],
     position: "bottom",
@@ -169,7 +167,7 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s6-thanks",
-    fromSec: 602,
+    fromSec: 453,
     durationSec: 6,
     text: "תודה על כל מה שהיית.",
     position: "bottom",
@@ -177,8 +175,8 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s6-carry",
-    fromSec: 613,
-    durationSec: 6,
+    fromSec: 464,
+    durationSec: 7,
     text: ["אנחנו נמשיך לשאת אותך", "איתנו תמיד."],
     position: "bottom",
     size: "medium",
