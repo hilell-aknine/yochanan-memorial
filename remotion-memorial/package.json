@@ -1,0 +1,27 @@
+{
+  "name": "remotion-memorial",
+  "version": "1.0.0",
+  "description": "Memorial film for Yochanan Eliyahu Farage z\"l",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render src/index.ts MemorialVideo ../build/memorial-final.mp4 --concurrency=2",
+    "render-fast": "remotion render src/index.ts MemorialVideo ../build/memorial-preview.mp4 --concurrency=2 --jpeg-quality=70",
+    "storyboard": "tsx scripts/build-storyboard.ts"
+  },
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.378",
+    "@remotion/google-fonts": "4.0.378",
+    "@remotion/transitions": "4.0.378",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.378",
+    "tsx": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "typescript": "5.5.3"
+  }
+}
