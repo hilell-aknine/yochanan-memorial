@@ -6,7 +6,7 @@
 //   Scene 3 — 2:43–5:19    (163–319s)
 //   Scene 4 — 5:19–5:51    (319–351s)
 //   Scene 5 — 5:51–7:07    (351–427s)
-//   Scene 6 — 7:07–8:07    (427–487s)
+//   Scene 6 — 7:07–7:39    (427–459s)   28s closing montage + 4s title
 
 export type TextSize = "small" | "medium" | "large" | "xlarge";
 export type TextPosition = "top" | "center" | "bottom";
@@ -148,10 +148,11 @@ export const textCues: TextCue[] = [
     font: "body",
   },
 
-  // ───── Scene 6 (427–487s) · Hillel's farewell ─────
+  // ───── Scene 6 (427–459s) · Closing montage + farewell ─────
+  // Cues live during the 28s photo block; title card occupies last 4s.
   {
     label: "s6-open",
-    fromSec: 430,
+    fromSec: 428,
     durationSec: 5,
     text: "אח שלי…",
     position: "bottom",
@@ -159,7 +160,7 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s6-line1",
-    fromSec: 441,
+    fromSec: 434,
     durationSec: 8,
     text: ["אי אפשר לסכם אדם כמוך", "ב-12 דקות."],
     position: "bottom",
@@ -167,16 +168,16 @@ export const textCues: TextCue[] = [
   },
   {
     label: "s6-thanks",
-    fromSec: 453,
-    durationSec: 6,
+    fromSec: 443,
+    durationSec: 5,
     text: "תודה על כל מה שהיית.",
     position: "bottom",
     size: "medium",
   },
   {
     label: "s6-carry",
-    fromSec: 464,
-    durationSec: 7,
+    fromSec: 449,
+    durationSec: 6,
     text: ["אנחנו נמשיך לשאת אותך", "איתנו תמיד."],
     position: "bottom",
     size: "medium",

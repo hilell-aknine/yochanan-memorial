@@ -183,12 +183,24 @@ export const scene5Legacy: PhotoEntry[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────
-// SCENE 6 · 11:00–12:00 (60s) · Ending
-// One hero photo for ~56s, then fade to black + name + dates for 4s.
-// TODO: Hillel to confirm/replace this hero photo if a stronger one exists.
+// SCENE 6 · Ending — closing montage
+// 7 curated photos × 4s = 28s + 4s title card = 32s.
+// Photos chosen to span the arc of his life: early portrait → family →
+// kids → friends → service → recent smile → final hero. Every photo at
+// the same 4s pace as the rest of the film so the viewer doesn't get
+// stuck on a single still at the close.
 // ─────────────────────────────────────────────────────────────────────────
-export const scene6Hero: PhotoEntry = {
-  src: `${dir.alone}/20260421_124429.jpg`,
-};
+export const scene6Closing: PhotoEntry[] = [
+  { src: `${dir.alone}/IMG-20220224-WA0025.jpg` }, // early portrait
+  { src: `${dir.family}/IMG-20170806-WA0013.jpg` }, // extended family
+  { src: `${dir.kids}/IMG-20170822-WA0029.jpg` }, // with kids
+  { src: `${dir.friends}/IMG-20200505-WA0013.jpg` }, // friends — "לב ענק"
+  { src: `${dir.service}/IMG-20231012-WA0046.jpg` }, // service
+  { src: `${dir.alone}/IMG-20260405-WA0011.jpg` }, // recent smile
+  { src: `${dir.alone}/20260421_124429.jpg` }, // final hero
+];
+
+// Kept for backward-compat with anywhere that still references it.
+export const scene6Hero: PhotoEntry = scene6Closing[scene6Closing.length - 1];
 
 // Audio is configured separately in src/data/audioManifest.ts.

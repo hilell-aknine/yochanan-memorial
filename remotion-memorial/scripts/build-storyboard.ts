@@ -23,7 +23,7 @@ import {
   scene3Extended,
   scene4Struggle,
   scene5Legacy,
-  scene6Hero,
+  scene6Closing,
   type PhotoEntry,
 } from "../src/data/photoManifest.js";
 import { audioCues, type AudioCue } from "../src/data/audioManifest.js";
@@ -56,6 +56,7 @@ type SceneSection = {
   phases: Phase[];
   hero?: PhotoEntry;
   videoSrc?: string;
+  tailNote?: string;
 };
 
 // Compute scene start times by accumulation.
@@ -159,9 +160,11 @@ const SCENES: SceneSection[] = [
     start: sceneStarts.s6,
     duration: SCENE_DURATIONS.scene6Ending,
     color: "#2a2a2a",
-    description: "תמונת hero למשך 56s + 4s כותרת סיום.",
-    phases: [],
-    hero: scene6Hero,
+    description: "מונטאז' סוגר: 7 תמונות חזקות מהמסע × 4s + 4s כרטיס סיום.",
+    phases: [
+      { kind: "photos", name: "מונטאז' סיום", photos: scene6Closing, durationSec: 28 },
+    ],
+    tailNote: "+ 4s כרטיס סיום: יוחנן אליהו פרדג' ז\"ל · 1988–2026",
   },
   {
     id: "outro",
@@ -409,6 +412,13 @@ function renderScene(scene: SceneSection): string {
         </div>`
       : "";
 
+  const tailBlock = scene.tailNote
+    ? `<div class="hero-tail" style="margin: 16px 24px;">
+        <strong>${escapeHtml(scene.tailNote)}</strong>
+        ${noteWidget(`title-card`, "כרטיס הסיום (שם + תאריכים)")}
+      </div>`
+    : "";
+
   return `
     <section class="scene" id="${scene.id}" style="border-color:${scene.color};">
       <header class="scene-header" style="background:${scene.color};">
@@ -422,6 +432,7 @@ function renderScene(scene: SceneSection): string {
       ${textBlock}
       ${subBlocks}
       ${heroBlock}
+      ${tailBlock}
     </section>
   `;
 }
@@ -787,7 +798,7 @@ const html = `<!doctype html>
     scene3Extended.length +
     scene4Struggle.length +
     scene5Legacy.length +
-    1
+    scene6Closing.length
   }</span>
   <span>סרטונים: 6 (2 מסביב + 4 משפחה)</span>
   <span>שירים: ${audioCues.length}</span>

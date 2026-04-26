@@ -35,7 +35,7 @@ export const SCENE_DURATIONS = {
   scene3FamilyMan: 156, // 7+9+15 × 4s + 14s + 17.4s family videos
   scene4Struggle: 32, //  5 portraits × 6.4s (cap override for narration)
   scene5Legacy: 76, //    9 photos × 4s + 40s family-3 video
-  scene6Ending: 60, //    56s hero + 4s title card
+  scene6Ending: 32, //    7 photos × 4s + 4s title card (closing montage)
 } as const;
 
 export const SCENES_TOTAL_SECONDS = Object.values(SCENE_DURATIONS).reduce(

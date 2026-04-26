@@ -2,59 +2,35 @@ import React from "react";
 import {
   AbsoluteFill,
   Sequence,
-  staticFile,
   useCurrentFrame,
   interpolate,
 } from "remotion";
-import { KenBurnsImage } from "../components/KenBurnsImage";
-import { scene6Hero } from "../data/photoManifest";
+import { PhotoSequence } from "../components/PhotoSequence";
+import { scene6Closing } from "../data/photoManifest";
 import { sec, SCENE_DURATIONS } from "../data/timing";
 import { loadFont as loadFrankRuhl } from "@remotion/google-fonts/FrankRuhlLibre";
 
 const { fontFamily: frankRuhl } = loadFrankRuhl("normal", { weights: ["400", "700"] });
 
-// Scene 6 · Ending
-// Hero photo for ~93% of the scene, then black title card for the rest
-// (always at least 4s, never longer than ~6s).
+// Scene 6 · Closing montage
+// 7 photos × 4s = 28s, then 4s of black with name + dates.
 export const Scene6Ending: React.FC = () => {
   const totalFrames = sec(SCENE_DURATIONS.scene6Ending);
   const titleFrames = sec(4);
-  const heroFrames = totalFrames - titleFrames;
+  const montageFrames = totalFrames - titleFrames;
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
-      <Sequence from={0} durationInFrames={heroFrames}>
-        <HeroPhoto durationInFrames={heroFrames} />
+      <Sequence from={0} durationInFrames={montageFrames}>
+        <PhotoSequence
+          photos={scene6Closing}
+          totalDurationFrames={montageFrames}
+          alternate
+        />
       </Sequence>
-      <Sequence from={heroFrames} durationInFrames={titleFrames}>
+      <Sequence from={montageFrames} durationInFrames={titleFrames}>
         <FinalTitle durationInFrames={titleFrames} />
       </Sequence>
-    </AbsoluteFill>
-  );
-};
-
-const HeroPhoto: React.FC<{ durationInFrames: number }> = ({
-  durationInFrames,
-}) => {
-  const frame = useCurrentFrame();
-  // Fade out the photo over the last 1.5s into the black title card.
-  const fadeOut = interpolate(
-    frame,
-    [durationInFrames - sec(1.5), durationInFrames],
-    [1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
-  );
-  // Soft fade-in over the first 1s as well.
-  const fadeIn = interpolate(frame, [0, sec(1)], [0, 1], {
-    extrapolateRight: "clamp",
-  });
-  return (
-    <AbsoluteFill style={{ opacity: Math.min(fadeIn, fadeOut) }}>
-      <KenBurnsImage
-        src={staticFile(scene6Hero.src)}
-        durationInFrames={durationInFrames}
-        direction="in"
-      />
     </AbsoluteFill>
   );
 };
